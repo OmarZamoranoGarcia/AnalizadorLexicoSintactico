@@ -1,0 +1,57 @@
+package analizadorlexicozamoranoomar;
+import java_cup.runtime.*;
+
+parser code 
+{:
+    public void syntax_error(Symbol s){       
+        System.out.println("Error Sintáctico en la Línea " + (s.right) +
+        " Columna "+s.left+ ". No se esperaba este componente: " +s.value+"."); 
+    }
+
+    public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{         
+        System.out.println("Error síntactico en la Línea " + 
+        (s.right)+ " Columna "+s.left+". Componente " + s.value + 
+        " no reconocido."); 
+    }   
+:} 
+
+terminal String Identificador, Coma, Imprime, Parentesis_Izq, Parentesis_Der, PuntoComa, Numero, Literal, Error, Modificador_de_acceso, Tipo_de_dato, Devuelve_valor, Asigna, Llave_Der, Llave_Izq, Principal, Declarador_de_metodos, Corchete_Der, Corchete_Izq, Crear_clase, Bucles, Operador_comparativo;  // Tokens a usar
+non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion; //no terminales a usar
+
+start with MILENGUAJE; //simbolo inicial
+
+MILENGUAJE ::= Librerias Clases Metodos MetodoPrincipal; //estructura del lenguaje
+Librerias ::= Libreria Librerias | /* vacío */;
+Clases ::= Clase Clases | /* vacío */;
+Metodos ::= Metodo Metodos | /* vacío */;
+MetodoPrincipal ::= Principal Parentesis_Izq Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
+
+//estructura para las librerias
+
+//estructura para las clases
+
+//estructura para los metodos
+Metodo ::= Modificador_de_acceso Declarador_de_metodos Identificador Parentesis_Izq Parametro Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
+Parametro ::= Parametros | /* vacío */;
+Parametros ::= Tipo_de_dato Identificador | Tipo_de_dato Identificador Coma Parametros;
+
+//---------- Lista de instrucciones sencillas para que pueda ser recursiva ----------
+ListaInstSencillas ::= Instrucciones ListaInstSencillas | /* vacío */;
+Instrucciones ::= InstPrint | InstVariable | InstArreglo | InstWhile;
+
+//---------- instrucciones sencillas que estaran dentro de la lista de instrucciones ----------
+//instruccion Print
+InstPrint ::= Imprime Parentesis_Izq IdNuLi Parentesis_Der PuntoComa;
+IdNuLi ::= Identificador | Numero | Literal;
+
+//instruccion para definir variable
+InstVariable ::= Identificador Asigna IdNuLi PuntoComa;
+
+//instruccion para un arreglo
+InstArreglo ::= Tipo_de_dato Corchete_Izq Corchete_Der Identificador Asigna Corchete_Izq ContenidoArreglo Corchete_Der;
+ContenidoArreglo ::= Contenido | /* vacío */;
+Contenido ::= IdNuLi | IdNuLi Coma Contenido;
+
+//instruccion para while
+InstWhile ::= Bucles Condicion Llave_Izq ListaInstSencillas Llave_Der;
+Condicion ::= Identificador Operador_comparativo Numero;

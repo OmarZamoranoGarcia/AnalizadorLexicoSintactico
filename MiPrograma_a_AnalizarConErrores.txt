@@ -1,0 +1,151 @@
+1234identificador1 ID_pureba
+EjemploDeId
+"Ejemplo de literal" "Otro ejemplo de literla"
+@UltimoID45
+GROUP BY, HAVING
+ALTER ,CHECK
+position, Position
+void
+switch, EXISTS, if, empty, IS NULL
+CMP, EQUIVALENCE
+instanceof
+input, Input
+!, ?, @, #, $, % 
+FOREIGN KEY, foreign key
+constructor
+WHERE
+COMMIT, ROLLBACK, SAVEPOINT, TRANSACTION
+do, while, for, loop, parfor 
+JGE
+DROP INDEX
+sealed, Sealed
+clone
+END, ENDS
+method
+SHL
+<, >, ==
+zip, ZIP
+IRET
+defer, acquire, synchronized
+min-width
+INCLUDE, UNION
+IN, in
+extends, super, mixin, extension
+goto, JMP
+LIKE
+map
+visibility
+import
+copy
+port, gpio, uart, pwm
+=, set, SET
+external, public, extern, protected, private, static, virtual, override, pub, mut, reified
+call | CALL
+ENDIF
+COMMON, unsafe
+MAX, COUNT, MIN, AVG, SUM, MUL, lambda, SUB, ADD, sin, cos, tan, log
+max-height
+MOVSW
+SEGMENT
+padding
+eval, EVAL
+bottom
+TRIGGER
+DATA, init
+except, EXCEPT, finally, raise
+width
+EXIT, break, await, stop
+DIV
+clear, CLS
+RET
+BETWEEN
+try, throw
+pixel, audio, render, frame
+add
+top
+INSERT, insert
+PUSH, push
+SAVE
+INT
+INTERSECT
+left
+default, DEFAULT
+implements, interface
+export
+class
+return
+Program
+margin
+INNER JOIN, RIGHT JOIN, FULL JOIN, JOIN, LEFT JOIN
+append, Append
+DEC
+function, def, fn
+background-color
+open, Open
+CREATE, struct
+volatile
+color, Color
+sizeof
+match
+merge, Merge
+min-height
+dup, with
+UPDATE, update
+JLE
+new
+assert, fixture
+AND, OR, NOT, XOR
+PTR, FAR, NEAR
+POP
+continue
+TRUNCATE
+abstract, self
+this, FROM, to
+LIMIT, RESTRICT
+CASCADE
+pass
+encrypt, decrypt, hash, salt
+)
+(
+]
+[
+}
+{
+" , ' 
+, | . | ; | : 
+yield
+get, GET
+object, boolean, DWORD, set, unsigned, QWORD, float, WORD, var, TBYTE, FWORD, string, byte, char, long, const, enum, double, let, BYTE, int, decimal, bit, nchar, complex, persistent 
+right
+SHR
+ORDER BY, package
+SELECT
+del, DROP, DELETE, delete
+async
+JNE
+JE
+ALIGN
+JL
+alloca
+UNION ALL
+null, undefined, NULL
+catch
+INC, AUTO_INCREMENT
+module
+max-width
+spmd
+CREATE TABLE
+overflow
+JG
+elif, else if
+case
++, *,  -,  /
+trait
+OFFSET
+else, otherwise 
+MOV, mov
+height
+PRIMARY KEY, primary key
+stack, queue, heap, graph
+print
+MOVSB
