@@ -1,0 +1,13 @@
+public method MetodoEjemplo (string x, char y){
+	while id < 43 {
+		string [] ArregloEjemplo = [a,b,c,d]
+	}
+}
+main (){
+
+}
+otraVariable = "HOLA";
+print(otraVariable);
+Variable = 43;
+variable = otraVariable;
+
