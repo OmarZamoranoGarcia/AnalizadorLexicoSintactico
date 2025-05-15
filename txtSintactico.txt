@@ -16,6 +16,8 @@ main (){
 			
 		}elif (id >= id2){
 
+		}else{
+		
 		}
 	}
 }
