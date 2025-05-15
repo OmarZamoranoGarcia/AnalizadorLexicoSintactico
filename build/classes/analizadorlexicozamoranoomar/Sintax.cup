@@ -15,8 +15,8 @@ parser code
     }   
 :} 
 
-terminal String Identificador, Coma, Imprime, Parentesis_Izq, Parentesis_Der, PuntoComa, Numero, Literal, Error, Modificador_de_acceso, Tipo_de_dato, Devuelve_valor, Asigna, Llave_Der, Llave_Izq, Principal, Declarador_de_metodos, Corchete_Der, Corchete_Izq, Crear_clase, Bucles, Operador_comparativo;  // Tokens a usar
-non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion; //no terminales a usar
+terminal String Identificador, Coma, Imprime, Parentesis_Izq, Parentesis_Der, PuntoComa, Numero, Literal, Error, Modificador_de_acceso, Tipo_de_dato, Devuelve_valor, Asigna, Llave_Der, Llave_Izq, Principal, Declarador_de_metodos, Corchete_Der, Corchete_Izq, Crear_clase, Ciclo_Mientras, Operador_comparativo, Importar, Agregador, Si, Sino, Sino_pregunta, Ciclo_Para, Incremento, Decremento, Punto;  // Tokens a usar
+non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion, Retorno, InstrAddArreglo, ParametroArreglo, ParametrosArreglos, InstIf, IfSino, MasIfSino, SinoIf, InstFor, SubeBaja; //no terminales a usar
 
 start with MILENGUAJE; //simbolo inicial
 
@@ -27,17 +27,19 @@ Metodos ::= Metodo Metodos | /* vacío */;
 MetodoPrincipal ::= Principal Parentesis_Izq Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
 
 //estructura para las librerias
+Libreria ::= Importar Identificador PuntoComa;
 
 //estructura para las clases
 
 //estructura para los metodos
-Metodo ::= Modificador_de_acceso Declarador_de_metodos Identificador Parentesis_Izq Parametro Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
+Metodo ::= Modificador_de_acceso Declarador_de_metodos Identificador Parentesis_Izq Parametro Parentesis_Der Llave_Izq ListaInstSencillas Retorno Llave_Der;
 Parametro ::= Parametros | /* vacío */;
 Parametros ::= Tipo_de_dato Identificador | Tipo_de_dato Identificador Coma Parametros;
+Retorno ::= Devuelve_valor Identificador PuntoComa | Devuelve_valor Numero PuntoComa;
 
 //---------- Lista de instrucciones sencillas para que pueda ser recursiva ----------
 ListaInstSencillas ::= Instrucciones ListaInstSencillas | /* vacío */;
-Instrucciones ::= InstPrint | InstVariable | InstArreglo | InstWhile;
+Instrucciones ::= InstPrint | InstVariable | InstArreglo | InstWhile | InstrAddArreglo | InstIf | InstFor;
 
 //---------- instrucciones sencillas que estaran dentro de la lista de instrucciones ----------
 //instruccion Print
@@ -53,5 +55,24 @@ ContenidoArreglo ::= Contenido | /* vacío */;
 Contenido ::= IdNuLi | IdNuLi Coma Contenido;
 
 //instruccion para while
-InstWhile ::= Bucles Condicion Llave_Izq ListaInstSencillas Llave_Der;
-Condicion ::= Identificador Operador_comparativo Numero;
+InstWhile ::= Ciclo_Mientras Condicion Llave_Izq ListaInstSencillas Llave_Der;
+Condicion ::= Identificador Operador_comparativo Numero | Identificador Operador_comparativo Identificador;
+
+//instruccion del metodo para agregar un valor a un arreglo
+InstrAddArreglo ::= Identificador Punto Agregador Parentesis_Izq ParametroArreglo Parentesis_Der PuntoComa;
+ParametroArreglo ::= ParametrosArreglos ;
+ParametrosArreglos ::= IdNuLi | IdNuLi Coma ParametrosArreglos ;
+
+//instruccion para if
+InstIf ::= Si Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der IfSino SinoIf;
+
+IfSino ::= MasIfSino | /* vacío */ ;
+
+MasIfSino ::= Sino_pregunta Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der
+            | Sino_pregunta Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der MasIfSino;
+
+SinoIf ::= Sino Llave_Izq ListaInstSencillas Llave_Der ;
+
+//instruccion para for
+InstFor ::= Ciclo_Para Parentesis_Izq Condicion Coma SubeBaja Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
+SubeBaja ::= Identificador Incremento | Identificador Decremento ;

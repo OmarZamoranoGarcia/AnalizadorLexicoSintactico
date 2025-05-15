@@ -1,13 +1,23 @@
+import libreriaEjemplo;
+
 public method MetodoEjemplo (string x, char y){
 	while id < 43 {
 		string [] ArregloEjemplo = [a,b,c,d]
 	}
+  return variable;
 }
 main (){
+	otraVariable = "HOLA";
+	print(otraVariable);
+	ArregloEjemplo.add("literal",12,id);
+	
+	for (id >= id2, id INC){
+		if(id >= id2){
+			
+		}elif (id >= id2){
 
+		}
+	}
 }
-otraVariable = "HOLA";
-print(otraVariable);
-Variable = 43;
-variable = otraVariable;
+
 

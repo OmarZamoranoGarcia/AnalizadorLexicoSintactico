@@ -29,7 +29,15 @@ return {return new Symbol(sym.Devuelve_valor, yychar, yyline, yytext());}
 main {return new Symbol(sym.Principal, yychar, yyline, yytext());}
 method {return new Symbol(sym.Declarador_de_metodos, yychar, yyline, yytext());}
 class {return new Symbol(sym.Crear_clase, yychar, yyline, yytext());}
-do | while | for | loop | parfor {return new Symbol(sym.Bucles, yychar, yyline, yytext());}
+while {return new Symbol(sym.Ciclo_Mientras, yychar, yyline, yytext());}
+for {return new Symbol(sym.Ciclo_Para, yychar, yyline, yytext());}
+import {return new Symbol(sym.Importar, yychar, yyline, yytext());}
+add {return new Symbol(sym.Agregador, yychar, yyline, yytext());}
+if {return new Symbol(sym.Si, yychar, yyline, yytext());}
+else | otherwise {return new Symbol(sym.Sino, yychar, yyline, yytext());}
+elif | else if {return new Symbol(sym.Sino_pregunta, yychar, yyline, yytext());}
+INC | AUTO_INCREMENT {return new Symbol(sym.Incremento, yychar, yyline, yytext());}
+DEC {return new Symbol(sym.Decremento, yychar, yyline, yytext());}
 {espacio} {/*Ignore*/}
 "//".* {/*Ignore*/}
 \n {yychar=1;}
@@ -40,6 +48,7 @@ do | while | for | loop | parfor {return new Symbol(sym.Bucles, yychar, yyline, 
 "(" {return new Symbol(sym.Parentesis_Izq, yychar, yyline, yytext());}
 ";" {return new Symbol(sym.PuntoComa, yychar, yyline, yytext());}
 "," {return new Symbol(sym.Coma, yychar, yyline, yytext());}
+"." {return new Symbol(sym.Punto, yychar, yyline, yytext());}
 "]" {return new Symbol(sym.Corchete_Der, yychar, yyline, yytext());}
 "[" {return new Symbol(sym.Corchete_Izq, yychar, yyline, yytext());}
 {L}({L}|{D})* {return new Symbol(sym.Identificador, yychar, yyline, yytext());}

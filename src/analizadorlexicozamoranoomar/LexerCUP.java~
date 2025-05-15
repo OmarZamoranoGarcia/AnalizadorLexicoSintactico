@@ -940,7 +940,7 @@ public class LexerCUP implements java_cup.runtime.Scanner {
           // fall through
           case 38: break;
           case 6:
-            { return new Symbol(sym.Coma, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Coma,(int) yychar, yyline, yytext());
             }
           // fall through
           case 39: break;
@@ -965,7 +965,7 @@ public class LexerCUP implements java_cup.runtime.Scanner {
           // fall through
           case 43: break;
           case 11:
-            { return new Symbol(sym.Asigna, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Asigna,(int) yychar, yyline, yytext());
             }
           // fall through
           case 44: break;
@@ -975,12 +975,12 @@ public class LexerCUP implements java_cup.runtime.Scanner {
           // fall through
           case 45: break;
           case 13:
-            { return new Symbol(sym.Corchete_Izq, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Corchete_Izq,(int) yychar, yyline, yytext());
             }
           // fall through
           case 46: break;
           case 14:
-            { return new Symbol(sym.Corchete_Der, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Corchete_Der,(int) yychar, yyline, yytext());
             }
           // fall through
           case 47: break;
@@ -990,7 +990,7 @@ public class LexerCUP implements java_cup.runtime.Scanner {
           // fall through
           case 48: break;
           case 16:
-            { return new Symbol(sym.Llave_Der, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Llave_Der,(int) yychar, yyline, yytext());
             }
           // fall through
           case 49: break;
@@ -1005,12 +1005,12 @@ public class LexerCUP implements java_cup.runtime.Scanner {
           // fall through
           case 51: break;
           case 19:
-            { return new Symbol(sym.Decremento, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Decremento,(int) yychar, yyline, yytext());
             }
           // fall through
           case 52: break;
           case 20:
-            { return new Symbol(sym.Incremento, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Incremento,(int) yychar, yyline, yytext());
             }
           // fall through
           case 53: break;
