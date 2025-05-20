@@ -950,7 +950,7 @@ public class LexerCUP implements java_cup.runtime.Scanner {
           // fall through
           case 40: break;
           case 8:
-            { return new Symbol(sym.Numero, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Numero,(int) yychar, yyline, yytext());
             }
           // fall through
           case 41: break;
@@ -965,12 +965,12 @@ public class LexerCUP implements java_cup.runtime.Scanner {
           // fall through
           case 43: break;
           case 11:
-            { return new Symbol(sym.Asigna, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Asigna,(int) yychar, yyline, yytext());
             }
           // fall through
           case 44: break;
           case 12:
-            { return new Symbol(sym.Identificador, (int)yychar, yyline, yytext());
+            { return new Symbol(sym.Identificador,(int) yychar, yyline, yytext());
             }
           // fall through
           case 45: break;

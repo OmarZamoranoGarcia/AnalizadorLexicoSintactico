@@ -16,7 +16,7 @@ parser code
 :} 
 
 terminal String Identificador, Coma, Imprime, Parentesis_Izq, Parentesis_Der, PuntoComa, Numero, Literal, Error, Modificador_de_acceso, Tipo_de_dato, Devuelve_valor, Asigna, Llave_Der, Llave_Izq, Principal, Declarador_de_metodos, Corchete_Der, Corchete_Izq, Crear_clase, Ciclo_Mientras, Operador_comparativo, Importar, Agregador, Si, Sino, Sino_pregunta, Ciclo_Para, Incremento, Decremento, Punto;  // Tokens a usar
-non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion, Retorno, InstrAddArreglo, ParametroArreglo, ParametrosArreglos, InstIf, IfSino, MasIfSino, SinoIf, InstFor, SubeBaja; //no terminales a usar
+non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion, Retorno, InstrAddArreglo, ParametroArreglo, ParametrosArreglos, InstIf, IfSino, MasIfSino, SinoIf, InstFor, SubeBaja, ParametroIdNuLi, ParametroIdNuLiArray; //no terminales a usar
 
 start with MILENGUAJE; //simbolo inicial
 
@@ -43,25 +43,23 @@ Instrucciones ::= InstPrint | InstVariable | InstArreglo | InstWhile | InstrAddA
 
 //---------- instrucciones sencillas que estaran dentro de la lista de instrucciones ----------
 //instruccion Print
-InstPrint ::= Imprime Parentesis_Izq IdNuLi Parentesis_Der PuntoComa;
+InstPrint ::= Imprime Parentesis_Izq ParametroIdNuLi Parentesis_Der PuntoComa;
+ParametroIdNuLi ::= IdNuLi | IdNuLi Coma ParametroIdNuLi;
 IdNuLi ::= Identificador | Numero | Literal;
 
 //instruccion para definir variable
-InstVariable ::= Identificador Asigna IdNuLi PuntoComa;
+InstVariable ::= Identificador Asigna IdNuLi PuntoComa | Identificador PuntoComa;
 
 //instruccion para un arreglo
-InstArreglo ::= Tipo_de_dato Corchete_Izq Corchete_Der Identificador Asigna Corchete_Izq ContenidoArreglo Corchete_Der;
-ContenidoArreglo ::= Contenido | /* vacío */;
-Contenido ::= IdNuLi | IdNuLi Coma Contenido;
+InstArreglo ::= Tipo_de_dato Corchete_Izq Corchete_Der Identificador Asigna Corchete_Izq ParametroIdNuLiArray Corchete_Der;
+ParametroIdNuLiArray ::= /* vacío */ | IdNuLi | IdNuLi Coma ParametroIdNuLiArray ;
 
 //instruccion para while
 InstWhile ::= Ciclo_Mientras Condicion Llave_Izq ListaInstSencillas Llave_Der;
 Condicion ::= Identificador Operador_comparativo Numero | Identificador Operador_comparativo Identificador;
 
 //instruccion del metodo para agregar un valor a un arreglo
-InstrAddArreglo ::= Identificador Punto Agregador Parentesis_Izq ParametroArreglo Parentesis_Der PuntoComa;
-ParametroArreglo ::= ParametrosArreglos ;
-ParametrosArreglos ::= IdNuLi | IdNuLi Coma ParametrosArreglos ;
+InstrAddArreglo ::= Identificador Punto Agregador Parentesis_Izq ParametroIdNuLi Parentesis_Der PuntoComa;
 
 //instruccion para if
 InstIf ::= Si Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der IfSino SinoIf;
