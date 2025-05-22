@@ -1,5 +1,16 @@
 import libreriaEjemplo;
 
+class private ClaseEjemplo () {
+ 	constructor (string a, int b)
+ 	MetodoEjemplo(x,y);
+	print("Ingrese Valor");
+	input();	
+}
+
+class public ClaseVacia(){
+	open("ruta de un archivo");
+}
+
 public method MetodoEjemplo (string x, char y){
 	while id < 43 {
 		string [] ArregloEjemplo = [a, 23, "hola"]
@@ -7,7 +18,11 @@ public method MetodoEjemplo (string x, char y){
 	}
   return variable;
 }
+
+
 main (){
+	ClaseEjemplo = new ClaseEjemplo (a,b);
+	ClaseVacia = new ClaseVacia ();
 	otraVariable = "HOLA";
 	Variable;
 	print(otraVariable);

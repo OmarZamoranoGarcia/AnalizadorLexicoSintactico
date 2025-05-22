@@ -15,8 +15,8 @@ parser code
     }   
 :} 
 
-terminal String Identificador, Coma, Imprime, Parentesis_Izq, Parentesis_Der, PuntoComa, Numero, Literal, Error, Modificador_de_acceso, Tipo_de_dato, Devuelve_valor, Asigna, Llave_Der, Llave_Izq, Principal, Declarador_de_metodos, Corchete_Der, Corchete_Izq, Crear_clase, Ciclo_Mientras, Operador_comparativo, Importar, Agregador, Si, Sino, Sino_pregunta, Ciclo_Para, Incremento, Decremento, Punto;  // Tokens a usar
-non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion, Retorno, InstrAddArreglo, ParametroArreglo, ParametrosArreglos, InstIf, IfSino, MasIfSino, SinoIf, InstFor, SubeBaja, ParametroIdNuLi, ParametroIdNuLiArray; //no terminales a usar
+terminal String Identificador, Coma, Imprime, Parentesis_Izq, Parentesis_Der, PuntoComa, Numero, Literal, Error, Modificador_de_acceso, Tipo_de_dato, Devuelve_valor, Asigna, Llave_Der, Llave_Izq, Principal, Declarador_de_metodos, Corchete_Der, Corchete_Izq, Crear_clase, Ciclo_Mientras, Operador_comparativo, Importar, Agregador, Si, Sino, Sino_pregunta, Ciclo_Para, Incremento, Decremento, Punto, Constructor, Generador_de_objetos, Ingresa, Abridor_de_archivos;  // Tokens a usar
+non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion, Retorno, InstrAddArreglo, ParametroArreglo, ParametrosArreglos, InstIf, IfSino, MasIfSino, SinoIf, InstFor, SubeBaja, ParametroIdNuLi, ParametroIdNuLiArray, ParametrosSencillos, ListaInstruccionesMain, InstruccionesMain, InstCrearObjeto, ConstructorClase, InstLlamarMetodo, InstInput, InstArbirArchivo, CuerpoClase, ListaClases; //no terminales a usar
 
 start with MILENGUAJE; //simbolo inicial
 
@@ -24,12 +24,21 @@ MILENGUAJE ::= Librerias Clases Metodos MetodoPrincipal; //estructura del lengua
 Librerias ::= Libreria Librerias | /* vacío */;
 Clases ::= Clase Clases | /* vacío */;
 Metodos ::= Metodo Metodos | /* vacío */;
-MetodoPrincipal ::= Principal Parentesis_Izq Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
+MetodoPrincipal ::= Principal Parentesis_Izq Parentesis_Der Llave_Izq ListaInstruccionesMain Llave_Der ;
+ListaInstruccionesMain ::= InstruccionesMain ListaInstruccionesMain | /* vacío */ ;
+InstruccionesMain ::= Instrucciones | InstCrearObjeto ;
+
+//instruccion para crear un objeto solo en el main
+InstCrearObjeto ::= Identificador Asigna Generador_de_objetos Identificador Parentesis_Izq ParametrosSencillos Parentesis_Der PuntoComa ;
+ParametrosSencillos ::= /* vacío */ | IdNuLi | IdNuLi Coma ParametrosSencillos ;
 
 //estructura para las librerias
 Libreria ::= Importar Identificador PuntoComa;
 
 //estructura para las clases
+Clase ::= Crear_clase Modificador_de_acceso Identificador Parentesis_Izq Parentesis_Der Llave_Izq CuerpoClase Llave_Der ;
+CuerpoClase ::= ConstructorClase ListaInstSencillas | ListaInstSencillas ;
+ConstructorClase ::= Constructor Parentesis_Izq Parametro Parentesis_Der ;
 
 //estructura para los metodos
 Metodo ::= Modificador_de_acceso Declarador_de_metodos Identificador Parentesis_Izq Parametro Parentesis_Der Llave_Izq ListaInstSencillas Retorno Llave_Der;
@@ -39,7 +48,7 @@ Retorno ::= Devuelve_valor Identificador PuntoComa | Devuelve_valor Numero Punto
 
 //---------- Lista de instrucciones sencillas para que pueda ser recursiva ----------
 ListaInstSencillas ::= Instrucciones ListaInstSencillas | /* vacío */;
-Instrucciones ::= InstPrint | InstVariable | InstArreglo | InstWhile | InstrAddArreglo | InstIf | InstFor;
+Instrucciones ::= InstPrint | InstVariable | InstArreglo | InstWhile | InstrAddArreglo | InstIf | InstFor | InstLlamarMetodo | InstInput | InstArbirArchivo;
 
 //---------- instrucciones sencillas que estaran dentro de la lista de instrucciones ----------
 //instruccion Print
@@ -74,3 +83,12 @@ SinoIf ::= Sino Llave_Izq ListaInstSencillas Llave_Der ;
 //instruccion para for
 InstFor ::= Ciclo_Para Parentesis_Izq Condicion Coma SubeBaja Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
 SubeBaja ::= Identificador Incremento | Identificador Decremento ;
+
+//instruccion para llamar un metodo
+InstLlamarMetodo ::= Identificador Parentesis_Izq ParametrosSencillos Parentesis_Der PuntoComa ;
+
+//instrucción para leer un dato recibido desde consola
+InstInput ::= Ingresa Parentesis_Izq Parentesis_Der PuntoComa ;
+
+//instrucción para abrir un archivo
+InstArbirArchivo ::= Abridor_de_archivos Parentesis_Izq Literal Parentesis_Der PuntoComa ;

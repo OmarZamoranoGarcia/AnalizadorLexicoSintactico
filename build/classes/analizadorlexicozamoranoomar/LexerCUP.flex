@@ -38,6 +38,10 @@ else | otherwise {return new Symbol(sym.Sino, yychar, yyline, yytext());}
 elif | else if {return new Symbol(sym.Sino_pregunta, yychar, yyline, yytext());}
 INC | AUTO_INCREMENT {return new Symbol(sym.Incremento, yychar, yyline, yytext());}
 DEC {return new Symbol(sym.Decremento, yychar, yyline, yytext());}
+constructor {return new Symbol(sym.Constructor, yychar, yyline, yytext());}
+new {return new Symbol(sym.Generador_de_objetos, yychar, yyline, yytext());}
+input | Input {return new Symbol(sym.Ingresa, yychar, yyline, yytext());}
+open | Open {return new Symbol(sym.Abridor_de_archivos, yychar, yyline, yytext());}
 {espacio} {/*Ignore*/}
 "//".* {/*Ignore*/}
 \n {yychar=1;}
