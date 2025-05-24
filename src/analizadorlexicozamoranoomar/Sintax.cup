@@ -16,79 +16,100 @@ parser code
 :} 
 
 terminal String Identificador, Coma, Imprime, Parentesis_Izq, Parentesis_Der, PuntoComa, Numero, Literal, Error, Modificador_de_acceso, Tipo_de_dato, Devuelve_valor, Asigna, Llave_Der, Llave_Izq, Principal, Declarador_de_metodos, Corchete_Der, Corchete_Izq, Crear_clase, Ciclo_Mientras, Operador_comparativo, Importar, Agregador, Si, Sino, Sino_pregunta, Ciclo_Para, Incremento, Decremento, Punto, Constructor, Generador_de_objetos, Ingresa, Abridor_de_archivos;  // Tokens a usar
-non terminal MILENGUAJE, Librerias, Clases, Metodos, MetodoPrincipal, Libreria, Clase, Metodo, ListaInstSencillas, Parametro, Parametros, Instrucciones, InstPrint, InstVariable, InstArreglo, IdNuLi, ContenidoArreglo, Contenido, InstWhile, Condicion, Retorno, InstrAddArreglo, ParametroArreglo, ParametrosArreglos, InstIf, IfSino, MasIfSino, SinoIf, InstFor, SubeBaja, ParametroIdNuLi, ParametroIdNuLiArray, ParametrosSencillos, ListaInstruccionesMain, InstruccionesMain, InstCrearObjeto, ConstructorClase, InstLlamarMetodo, InstInput, InstArbirArchivo, CuerpoClase, ListaClases; //no terminales a usar
+//no terminales a usar
+non terminal MILENGUAJE,
+Librerias, Libreria,
+Clases, Clase, ConstructorClase, ParametroConstructorClase, ParametroConstructorClaseMas,
+Metodos, Metodo, ParametroMetodo, ParametroMetodoMas, Retorno,
+MetodoPrincipal, ListaInstruccionesMain, InstruccionesMain,
+ListaInstSencillas, Instrucciones,
+InstCrearObjeto, ParametrosObjeto, MasParametrosObjeto,
+InstVariable, VariableVacia, IdNuLi,
+InstPrint, ParametroPrint, MasParametrosPrint,
+InstArreglo, ParametroArreglo, MasParametrosArreglo,
+InstWhile, Condicion, NuId,
+InstrAddArreglo,
+InstIf, IfSino, SinoIf,
+InstFor, SubeBaja, IncDec,
+InstLlamarMetodo,
+InstInput,
+InstArbirArchivo ;
+
 
 start with MILENGUAJE; //simbolo inicial
 
 MILENGUAJE ::= Librerias Clases Metodos MetodoPrincipal; //estructura del lenguaje
-Librerias ::= Libreria Librerias | /* vacío */;
-Clases ::= Clase Clases | /* vacío */;
-Metodos ::= Metodo Metodos | /* vacío */;
-MetodoPrincipal ::= Principal Parentesis_Izq Parentesis_Der Llave_Izq ListaInstruccionesMain Llave_Der ;
-ListaInstruccionesMain ::= InstruccionesMain ListaInstruccionesMain | /* vacío */ ;
-InstruccionesMain ::= Instrucciones | InstCrearObjeto ;
-
-//instruccion para crear un objeto solo en el main
-InstCrearObjeto ::= Identificador Asigna Generador_de_objetos Identificador Parentesis_Izq ParametrosSencillos Parentesis_Der PuntoComa ;
-ParametrosSencillos ::= /* vacío */ | IdNuLi | IdNuLi Coma ParametrosSencillos ;
 
 //estructura para las librerias
+Librerias ::= Libreria Librerias | /* vacío */; 
 Libreria ::= Importar Identificador PuntoComa;
 
 //estructura para las clases
-Clase ::= Crear_clase Modificador_de_acceso Identificador Parentesis_Izq Parentesis_Der Llave_Izq CuerpoClase Llave_Der ;
-CuerpoClase ::= ConstructorClase ListaInstSencillas | ListaInstSencillas ;
-ConstructorClase ::= Constructor Parentesis_Izq Parametro Parentesis_Der ;
+Clases ::= Clase Clases | /* vacío */; 
+Clase ::= Crear_clase Modificador_de_acceso Identificador Parentesis_Izq Parentesis_Der Llave_Izq ConstructorClase ListaInstSencillas Metodos Llave_Der ;
+ConstructorClase ::= Constructor Parentesis_Izq ParametroConstructorClase Parentesis_Der | /* vacío */ ;
+ParametroConstructorClase ::= Tipo_de_dato Identificador ParametroConstructorClaseMas ;
+ParametroConstructorClaseMas ::= Coma ParametroConstructorClase  | /* vacío */ ;
 
 //estructura para los metodos
-Metodo ::= Modificador_de_acceso Declarador_de_metodos Identificador Parentesis_Izq Parametro Parentesis_Der Llave_Izq ListaInstSencillas Retorno Llave_Der;
-Parametro ::= Parametros | /* vacío */;
-Parametros ::= Tipo_de_dato Identificador | Tipo_de_dato Identificador Coma Parametros;
-Retorno ::= Devuelve_valor Identificador PuntoComa | Devuelve_valor Numero PuntoComa;
+Metodos ::= Metodo Metodos | /* vacío */; 
+Metodo ::= Modificador_de_acceso Declarador_de_metodos Identificador Parentesis_Izq ParametroMetodo Parentesis_Der Llave_Izq ListaInstSencillas Retorno Llave_Der ;
+ParametroMetodo ::= Tipo_de_dato Identificador ParametroMetodoMas | /* vacío */ ;
+ParametroMetodoMas ::= Coma ParametroMetodo | /* vacío */ ;
+Retorno ::= Devuelve_valor IdNuLi PuntoComa ;
 
-//---------- Lista de instrucciones sencillas para que pueda ser recursiva ----------
+//estructura para el metodo principal
+MetodoPrincipal ::= Principal Parentesis_Izq Parentesis_Der Llave_Izq ListaInstruccionesMain Llave_Der ; 
+ListaInstruccionesMain ::= InstruccionesMain ListaInstruccionesMain | /* vacío */ ;
+InstruccionesMain ::= Instrucciones | InstCrearObjeto ;
+
+//instruccion para crear un objeto solo dentro del main
+InstCrearObjeto ::= Identificador Asigna Generador_de_objetos Identificador Parentesis_Izq ParametrosObjeto Parentesis_Der PuntoComa ;
+ParametrosObjeto ::= /* vacío */ | IdNuLi MasParametrosObjeto ;
+MasParametrosObjeto ::= /* vacío */ | Coma IdNuLi MasParametrosObjeto ;
+
+// -------------- lista de instrucciones sencillas --------------
 ListaInstSencillas ::= Instrucciones ListaInstSencillas | /* vacío */;
-Instrucciones ::= InstPrint | InstVariable | InstArreglo | InstWhile | InstrAddArreglo | InstIf | InstFor | InstLlamarMetodo | InstInput | InstArbirArchivo;
+Instrucciones ::= InstVariable | InstPrint | InstArreglo | InstWhile | InstrAddArreglo | InstIf | InstFor | InstLlamarMetodo | InstInput | InstArbirArchivo;
 
-//---------- instrucciones sencillas que estaran dentro de la lista de instrucciones ----------
-//instruccion Print
-InstPrint ::= Imprime Parentesis_Izq ParametroIdNuLi Parentesis_Der PuntoComa;
-ParametroIdNuLi ::= IdNuLi | IdNuLi Coma ParametroIdNuLi;
+//instruccion para declarar variable
+InstVariable ::= Identificador Asigna IdNuLi PuntoComa | VariableVacia ;
+VariableVacia ::= Identificador PuntoComa ;
 IdNuLi ::= Identificador | Numero | Literal;
 
-//instruccion para definir variable
-InstVariable ::= Identificador Asigna IdNuLi PuntoComa | Identificador PuntoComa;
+//instruccion para print
+InstPrint ::= Imprime Parentesis_Izq ParametroPrint Parentesis_Der PuntoComa;
+ParametroPrint ::= IdNuLi MasParametrosPrint ;
+MasParametrosPrint ::= Coma ParametroPrint | /* vacío */;
 
-//instruccion para un arreglo
-InstArreglo ::= Tipo_de_dato Corchete_Izq Corchete_Der Identificador Asigna Corchete_Izq ParametroIdNuLiArray Corchete_Der;
-ParametroIdNuLiArray ::= /* vacío */ | IdNuLi | IdNuLi Coma ParametroIdNuLiArray ;
+//instruccion para declarar un arreglo con o sin elementos
+InstArreglo ::= Tipo_de_dato Corchete_Izq Corchete_Der Identificador Asigna Corchete_Izq ParametroArreglo Corchete_Der;
+ParametroArreglo ::= /* vacío */ | IdNuLi MasParametrosArreglo ;
+MasParametrosArreglo ::= Coma ParametroArreglo | /* vacío */ ;
 
-//instruccion para while
+//instruccion para ciclo while
 InstWhile ::= Ciclo_Mientras Condicion Llave_Izq ListaInstSencillas Llave_Der;
-Condicion ::= Identificador Operador_comparativo Numero | Identificador Operador_comparativo Identificador;
+Condicion ::= Identificador Operador_comparativo NuId;
+NuId ::= Numero | Identificador ;
 
-//instruccion del metodo para agregar un valor a un arreglo
-InstrAddArreglo ::= Identificador Punto Agregador Parentesis_Izq ParametroIdNuLi Parentesis_Der PuntoComa;
+//instruccion para agregar 1 o mas elementos a un arreglo
+InstrAddArreglo ::= Identificador Punto Agregador Parentesis_Izq ParametroPrint Parentesis_Der PuntoComa;
 
 //instruccion para if
 InstIf ::= Si Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der IfSino SinoIf;
-
-IfSino ::= MasIfSino | /* vacío */ ;
-
-MasIfSino ::= Sino_pregunta Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der
-            | Sino_pregunta Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der MasIfSino;
-
+IfSino ::= Sino_pregunta Parentesis_Izq Condicion Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der IfSino | /* vacío */ ;
 SinoIf ::= Sino Llave_Izq ListaInstSencillas Llave_Der ;
 
-//instruccion para for
+//instruccion para ciclo for
 InstFor ::= Ciclo_Para Parentesis_Izq Condicion Coma SubeBaja Parentesis_Der Llave_Izq ListaInstSencillas Llave_Der;
-SubeBaja ::= Identificador Incremento | Identificador Decremento ;
+SubeBaja ::= Identificador IncDec ;
+IncDec ::= Incremento | Decremento ;
 
-//instruccion para llamar un metodo
-InstLlamarMetodo ::= Identificador Parentesis_Izq ParametrosSencillos Parentesis_Der PuntoComa ;
+//instruccion para llamar a un metodo
+InstLlamarMetodo ::= Identificador Parentesis_Izq ParametroArreglo Parentesis_Der PuntoComa ;
 
-//instrucción para leer un dato recibido desde consola
+//instruccion de input
 InstInput ::= Ingresa Parentesis_Izq Parentesis_Der PuntoComa ;
 
-//instrucción para abrir un archivo
+//instruccion para abrir un archivo
 InstArbirArchivo ::= Abridor_de_archivos Parentesis_Izq Literal Parentesis_Der PuntoComa ;

@@ -1,44 +1,54 @@
+//librerias
 import libreriaEjemplo;
+import otralibreria;
 
-class private ClaseEjemplo () {
- 	constructor (string a, int b)
- 	MetodoEjemplo(x,y);
-	print("Ingrese Valor");
-	input();	
+//clase con constructor
+class private ClaseEjemplo1 () {
+ 	constructor (string a, int b)	
+	Variable0 = 0;	//declaro una variable con valor int
 }
 
-class public ClaseVacia(){
-	open("ruta de un archivo");
+//clase sin constructor
+class public CalseEjemplo2 (){
+	open("ruta de un archivo"); //abridor de archivos
+	//metodo ejemplo dentro de una clase sin parametros
+	private method MetodoEjemplo1 () {
+		//cliclo for
+		for (id >= id2, id INC){
+
+			//if con un elif
+			if(id >= id2){
+				//algo pasa
+			}elif (id >= id2){
+				//otra cosa pasa
+			}else{
+				//pasa algo
+			}
+		}
+	return algunaVariable;
+	}
 }
 
-public method MetodoEjemplo (string x, char y){
+//metodo ejemplo dentro fuera de una una clase con parametros
+public method MetodoEjemplo2 (string x, char y){
+	print("Ingrese Valor"); //print
+	input(); //input
+	//ciclo while
 	while id < 43 {
+		//Declaracion de arreglos
 		string [] ArregloEjemplo = [a, 23, "hola"]
 		string [] Arreglo = []
 	}
   return variable;
 }
 
-
+//metodo main
 main (){
-	ClaseEjemplo = new ClaseEjemplo (a,b);
-	ClaseVacia = new ClaseVacia ();
-	otraVariable = "HOLA";
-	Variable;
-	print(otraVariable);
-	print(otraVariable, 21, "Hola mundo");
-	ArregloEjemplo.add("literal",12,id);
-	
-	for (id >= id2, id INC){
-		if(id >= id2){
-			
-		}elif (id >= id2){
-
-		}else{
-
-		}
-	}
-
+	ClaseEjemplo = new ClaseEjemplo1 (a,b); //crear objetos
+	ClaseVacia = new ClaseEjemplo2 ();
+	Variable1 = "HOLA"; //declara variable con valor string
+	Variable2 ; //declara variable sin valor
+	ArregloEjemplo.add("literal",12,id); //metodo para agregar elementos a un arreglo
+	MetodoEjemplo2(x,y); //llamada de un metodo con parametros
+	MetodoEjemplo2(); //llamada de un metodo sin parametros
 }
-
-
